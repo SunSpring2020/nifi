@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- xml文件内的大部分属性会在ambari web UI上的configs标签页展示，内容可编辑修改 -->
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!-- supports_adding_forbidden设置为true，取消自定义配置 -->
+<configuration supports_adding_forbidden="true">
+
+    <property>
+        <name>server_port</name>
+        <displayName>server_port</displayName>
+        <value>8443</value>
+        <description>Nifi服务端口</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>username</name>
+        <displayName>Nifi UserName</displayName>
+        <value>root</value>
+        <description>Nifi Login UserName</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>password</name>
+        <displayName>Nifi User Password</displayName>
+        <value/>
+        <property-type>PASSWORD</property-type>
+        <description>Nifi Login User Password</description>
+        <value-attributes>
+            <type>password</type>
+            <minimum>12</minimum>
+        </value-attributes>
+    </property>
+
+</configuration>

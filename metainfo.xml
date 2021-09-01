@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <!-- 服务名称 -->
+            <name>NIFI</name>
+            <!-- ambari web展示服务名称 -->
+            <displayName>Nifi</displayName>
+            <!-- ambari web展示服务介绍 -->
+            <comment>
+                Apache NiFi 是一个易于使用、功能强大而且可靠的数据拉取、数据处理和分发系统，用于自动化管理系统间的数据流。
+            </comment>
+            <!-- ambari web展示服务版本号 -->
+            <version>1.14.0</version>
+            <!-- 服务包含组件 -->
+            <components>
+                <component>
+                    <!-- 组件名称 -->
+                    <name>NIFI_SERVICE</name>
+                    <!-- ambari web展示组件名称 -->
+                    <displayName>Nifi Service</displayName>
+                    <!-- 组件类型-MASTER，SLAVE，CLIENT -->
+                    <category>MASTER</category>
+                    <!-- 组件安装机器数 -->
+                    <cardinality>1+</cardinality>
+                    <!-- 用于服务监控指标 -->
+                    <timelineAppid>nifi</timelineAppid>
+                    <!-- 标准命令 -->
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>1800</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>NIFI_CLIENT</name>
+                    <displayName>NIFI Client</displayName>
+                    <category>CLIENT</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/client.py</script>
+                        <scriptType>PYTHON</scriptType>
+                    </commandScript>
+                    <configFiles>
+                        <configFile>
+                            <type>xml</type>
+                            <fileName>nifi-config.xml</fileName>
+                            <dictionaryName>nifi-config</dictionaryName>
+                        </configFile>
+                        <configFile>
+                            <type>env</type>
+                            <fileName>nifi.properties</fileName>
+                            <dictionaryName>tdengine-config</dictionaryName>
+                        </configFile>
+                    </configFiles>
+                </component>
+            </components>
+            <!-- 操作系统 -->
+            <osSpecifics>
+                <osFamily>any</osFamily>
+            </osSpecifics>
+            <!-- 配置文件修改重启 -->
+            <configuration-dependencies>
+                <!-- 配置文件，默认为configuration包下的xml文件 -->
+                <config-type>nifi-config</config-type>
+                <config-type>nifi-env</config-type>
+            </configuration-dependencies>
+            <!-- 配置修改后重启 -->
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+            <!-- nifi的快速链接 -->
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks-nifi.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+            <!--需要前置安装的服务-->
+            <requiredServices>
+                <service>ZOOKEEPER</service>
+            </requiredServices>
+        </service>
+    </services>
+</metainfo>

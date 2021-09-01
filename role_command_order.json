@@ -1,0 +1,10 @@
+{
+  "general_deps": {
+    "NIFI_SERVICE-INSTALL": [
+      "ZOOKEEPER_SERVER-INSTALL"
+    ],
+    "NIFI_SERVICE-START": [
+      "ZOOKEEPER_SERVER-START"
+    ]
+  }
+}

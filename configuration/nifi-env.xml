@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+
+    <!-- 创建用户，不会显示在ambari web页面 -->
+    <property>
+        <name>nifi_user</name>
+        <display-name>Nifi user</display-name>
+        <value>nifi</value>
+        <description>创建Nifi用户</description>
+        <!-- 属性类型，USER表明本属性是创建用户 -->
+        <property-type>USER</property-type>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+            <!-- 指定用户组 -->
+            <user-groups>
+                <property>
+                    <type>cluster-env</type>
+                    <name>user_group</name>
+                </property>
+                <property>
+                    <!-- 用户组配置文件 -->
+                    <type>nifi-env</type>
+                    <!-- 用户组名称 -->
+                    <name>nifi_group</name>
+                </property>
+            </user-groups>
+        </value-attributes>
+    </property>
+
+    <!-- 创建用户组，不会显示在ambari web页面 -->
+    <property>
+        <name>nifi_group</name>
+        <display-name>nifi User Group</display-name>
+        <value>nifi_group</value>
+        <description>创建Nifi用户组</description>
+        <!-- 属性类型，GROUP表明本属性是创建用户组 -->
+        <property-type>GROUP</property-type>
+    </property>
+
+    <!-- Nifi安装目录 -->
+    <property>
+        <name>nifi_dir</name>
+        <display-name>Nifi install directory</display-name>
+        <value>/usr/local/nifi</value>
+        <description>Nifi安装目录</description>
+        <final>true</final>
+        <value-attributes>
+            <type>directories</type>
+            <overridable>false</overridable>
+            <editable-only-at-install>true</editable-only-at-install>
+        </value-attributes>
+    </property>
+
+    <!-- Nifi的pid目录 -->
+    <property>
+        <name>nifi_pid_dir</name>
+        <display-name>Nifi pid directory</display-name>
+        <value>/var/run/nifi</value>
+        <description>Nifi pid目录</description>
+        <value-attributes>
+            <type>directories</type>
+            <editable-only-at-install>true</editable-only-at-install>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+</configuration>

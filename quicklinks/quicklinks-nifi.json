@@ -1,0 +1,27 @@
+{
+  "name": "default",
+  "description": "default quick links configuration",
+  "configuration": {
+    "protocol": {
+      "type": "https",
+      "checks": [
+        {
+        }
+      ]
+    },
+    "links": [
+      {
+        "name": "nifi_ui",
+        "label": "NIFI UI",
+        "component_name": "NIFI_UI",
+        "url": "%@://%@:%@/nifi",
+        "port": {
+          "https_property": "server_port",
+          "https_default_port": "8443",
+          "regex": "^(\\d+)$",
+          "site": "nifi-config"
+        }
+      }
+    ]
+  }
+}
