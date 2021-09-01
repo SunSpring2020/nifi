@@ -15,6 +15,26 @@
     </property>
 
     <property>
+        <name>node_port</name>
+        <displayName>node_port</displayName>
+        <value>16342</value>
+        <description>Nifi集群协议端口</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
+        <name>balance_port</name>
+        <displayName>balance_port</displayName>
+        <value>6342</value>
+        <description>Nifi集群负载均衡端口</description>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+
+    <property>
         <name>username</name>
         <displayName>Nifi UserName</displayName>
         <value>root</value>

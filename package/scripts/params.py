@@ -21,6 +21,12 @@ nifi_pid_file = format("{nifi_pid_dir}/nifi.pid")
 # 获取nifi的服务端口
 server_port = config['configurations']['nifi-config']['server_port']
 
+# 获取nifi集群协议端口
+node_port = config['configurations']['nifi-config']['node_port']
+
+#
+balance_port = config['configurations']['nifi-config']['balance_port']
+
 # 获取nifi服务的用户名
 username = config['configurations']['nifi-config']['username']
 
