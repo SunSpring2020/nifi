@@ -34,26 +34,4 @@
         </value-attributes>
     </property>
 
-    <property>
-        <name>username</name>
-        <displayName>Nifi UserName</displayName>
-        <value>root</value>
-        <description>Nifi Login UserName</description>
-        <value-attributes>
-            <overridable>false</overridable>
-        </value-attributes>
-    </property>
-
-    <property>
-        <name>password</name>
-        <displayName>Nifi User Password</displayName>
-        <value/>
-        <property-type>PASSWORD</property-type>
-        <description>Nifi Login User Password</description>
-        <value-attributes>
-            <type>password</type>
-            <minimum>12</minimum>
-        </value-attributes>
-    </property>
-
 </configuration>

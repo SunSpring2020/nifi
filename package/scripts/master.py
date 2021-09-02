@@ -13,17 +13,20 @@ class Master(Script):
         # 删除旧的安装文件(Nifi不存储数据)
         Execute(format("rm -rf {nifi_install_dir}"))
 
+        # 删除残留的pid文件夹
+        Execute(format("rm -rf {nifi_pid_dir}"))
+
         # 下载安装包
-        Execute(format("wget {nifi_download} -O nifi.tar.gz"))
+        # Execute(format("wget {nifi_download} -O nifi.tar.gz"))
 
         # 创建安装目录
         Execute(format("mkdir -p {nifi_install_dir}"))
 
         # nifi解压到指定的目录
-        Execute(format("tar -zxvf nifi.tar.gz -C {nifi_install_dir}"))
+        Execute(format("cd /root && tar -zxvf nifi.tar.gz -C {nifi_install_dir}"))
 
         # 删除Nifi安装包
-        Execute("rm -rf nifi.tar.gz")
+        # Execute("rm -rf nifi.tar.gz")
 
         Logger.info("安装完成!")
 
@@ -50,16 +53,6 @@ class Master(Script):
                   create_parents=True
                   )
 
-        # nifi服务设置用户名和密码(在非ambari-server节点会报找不到JAVA_HOME的命令,运行java -version也会报错)
-        try:
-            Execute(format("{nifi_install_dir}/bin/nifi.sh set-single-user-credentials {username} {password}"))
-        except Exception as e:
-            Logger.info("\n")
-            Logger.info(str(e))
-            Logger.info("\n")
-            if "type: java: not found" in str(e):
-                pass
-
         # 修改nifi文件夹权限
         Execute(format("chown -R {nifi_user}:{nifi_group} {nifi_install_dir} {nifi_pid_dir}"))
 
@@ -73,6 +66,9 @@ class Master(Script):
 
         # 启动前的配置
         self.configure(env)
+
+        # 为非ambari-server节点的ambari-agent获取Java环境变量
+        Execute("source /etc/profile", user=params.nifi_user)
 
         # Nifi启动
         Execute(format("{nifi_install_dir}/bin/nifi.sh start"), user=params.nifi_user)
@@ -89,15 +85,11 @@ class Master(Script):
 
         Logger.info("停止开始")
 
+        # 为非ambari-server节点的ambari-agent获取Java环境变量
+        Execute("source /etc/profile", user=params.nifi_user)
+
         # Nifi停止
-        try:
-            Execute(format("{nifi_install_dir}/bin/nifi.sh stop"))
-        except Exception as e:
-            Logger.info("\n")
-            Logger.info(str(e))
-            Logger.info("\n")
-            if "type: java: not found" in str(e):
-                pass
+        Execute(format("{nifi_install_dir}/bin/nifi.sh stop"), user=params.nifi_user)
 
         # Nifi的pid目录删除
         Execute(format("rm -rf {nifi_pid_dir}"))
@@ -111,10 +103,32 @@ class Master(Script):
         check_process_status(params.nifi_pid_file)
 
     def restart(self, env):
+        import params
+        env.set_params(params)
+
         Logger.info("重启开始")
 
-        self.stop(env)
-        self.start(env)
+        # 为非ambari-server节点的ambari-agent获取Java环境变量
+        Execute("source /etc/profile", user=params.nifi_user)
+
+        # Nifi的pid目录删除
+        Execute(format("rm -rf {nifi_pid_dir}"))
+
+        # 创建pid文件
+        Directory([params.nifi_pid_dir],
+                  mode=0755,
+                  cd_access='a',
+                  owner=params.nifi_user,
+                  group=params.nifi_group,
+                  create_parents=True
+                  )
+
+        # Nifi重启
+        Execute(format("{nifi_install_dir}/bin/nifi.sh restart"), user=params.nifi_user)
+
+        Execute(
+            "ps -ef | grep " + params.nifi_install_dir + "/bin/nifi.sh | grep -v grep | awk '{print $2}' > " + params.nifi_pid_file,
+            user=params.nifi_user)
 
         Logger.info("重启结束")
 

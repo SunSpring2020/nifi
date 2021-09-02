@@ -27,12 +27,6 @@ node_port = config['configurations']['nifi-config']['node_port']
 #
 balance_port = config['configurations']['nifi-config']['balance_port']
 
-# 获取nifi服务的用户名
-username = config['configurations']['nifi-config']['username']
-
-# 获取nifi服务的用户密码
-password = config['configurations']['nifi-config']['password']
-
 # 是否是集群节点
 cluster_node = "true"
 
@@ -56,4 +50,4 @@ if zk_list is not None:
 # 获取nifi的下载文件路径
 if config.get('repositoryFile'):
     baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
-    nifi_download = format("{baseUrl}/nifi/nifi-1.14.0-bin.tar.gz")
+    nifi_download = format("{baseUrl}/nifi/nifi-1.13.2-bin.tar.gz")
