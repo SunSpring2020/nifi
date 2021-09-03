@@ -51,7 +51,7 @@
                         <configFile>
                             <type>env</type>
                             <fileName>nifi.properties</fileName>
-                            <dictionaryName>tdengine-config</dictionaryName>
+                            <dictionaryName>nifi-config</dictionaryName>
                         </configFile>
                     </configFiles>
                 </component>
