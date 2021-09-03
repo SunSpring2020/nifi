@@ -5,15 +5,13 @@
     "protocol": {
       "type": "http",
       "checks": [
-        {
-        }
       ]
     },
     "links": [
       {
         "name": "nifi_ui",
         "label": "NIFI UI",
-        "component_name": "NIFI_UI",
+        "component_name": "NIFI_SERVICE",
         "url": "%@://%@:%@/nifi",
         "port": {
           "http_property": "server_port",

@@ -71,7 +71,7 @@
             <!-- nifi的快速链接 -->
             <quickLinksConfigurations>
                 <quickLinksConfiguration>
-                    <fileName>quicklinks-nifi.json</fileName>
+                    <fileName>quicklinks.json</fileName>
                     <default>true</default>
                 </quickLinksConfiguration>
             </quickLinksConfigurations>
