@@ -50,4 +50,4 @@ if zk_list is not None:
 # 获取nifi的下载文件路径
 if config.get('repositoryFile'):
     baseUrl = config['repositoryFile']['repositories'][0]['baseUrl']
-    nifi_download = format("{baseUrl}/nifi/nifi-1.13.2-bin.tar.gz")
+    nifi_download = format("{baseUrl}/nifi/nifi-1.9.2-bin.tar.gz")
