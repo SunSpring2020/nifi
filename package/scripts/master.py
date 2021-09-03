@@ -132,6 +132,67 @@ class Master(Script):
 
         Logger.info("重启结束")
 
+    def alone_to_cluster(self, env):
+        import params
+        env.set_params(params)
+
+        Logger.info("单机转集群开始")
+
+        self.stop(env)
+
+        self.configure(env)
+
+        self.start(env)
+
+        Logger.info("单机转集群完成")
+
+    def cluster_to_alone(self, env):
+        import alone
+        env.set_params(alone)
+
+        Logger.info("集群转单机开始")
+
+        # 为非ambari-server节点的ambari-agent获取Java环境变量
+        Execute("source /etc/profile", user=alone.nifi_user)
+
+        # Nifi停止
+        Execute(format("{nifi_install_dir}/bin/nifi.sh stop"), user=alone.nifi_user)
+
+        # Nifi的pid目录删除
+        Execute(format("rm -rf {nifi_pid_dir}"))
+
+        # 修改nifi.properties配置
+        File(format("{nifi_install_dir}/conf/nifi.properties"),
+             content=Template("nifi.properties.j2", configurations=alone))
+
+        # 修改state-management.xml配置
+        File(format("{nifi_install_dir}/conf/state-management.xml"),
+             content=Template("state-management.xml.j2", configurations=alone))
+
+        # 创建pid文件
+        Directory([alone.nifi_pid_dir],
+                  mode=0755,
+                  cd_access='a',
+                  owner=alone.nifi_user,
+                  group=alone.nifi_group,
+                  create_parents=True
+                  )
+
+        # 修改nifi文件夹权限
+        Execute(format("chown -R {nifi_user}:{nifi_group} {nifi_install_dir} {nifi_pid_dir}"))
+
+        # 为非ambari-server节点的ambari-agent获取Java环境变量
+        Execute("source /etc/profile", user=alone.nifi_user)
+
+        # Nifi启动
+        Execute(format("{nifi_install_dir}/bin/nifi.sh start"), user=alone.nifi_user)
+
+        Execute(
+            "ps -ef | grep " + alone.nifi_install_dir + "/bin/nifi.sh | grep -v grep | awk '{print $2}' > " + alone.nifi_pid_file,
+            user=alone.nifi_user)
+
+        Logger.info("集群转单机结束")
+
 
 if __name__ == "__main__":
     Master().execute()
