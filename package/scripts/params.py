@@ -24,7 +24,7 @@ server_port = config['configurations']['nifi-config']['server_port']
 # 获取nifi集群协议端口
 node_port = config['configurations']['nifi-config']['node_port']
 
-#
+# 获取nifi集群平衡端口
 balance_port = config['configurations']['nifi-config']['balance_port']
 
 # 是否是集群节点
