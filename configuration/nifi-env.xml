@@ -20,6 +20,10 @@
                     <name>user_group</name>
                 </property>
                 <property>
+                    <type>hdfs-site</type>
+                    <name>dfs.permissions.superusergroup</name>
+                </property>
+                <property>
                     <!-- 用户组配置文件 -->
                     <type>nifi-env</type>
                     <!-- 用户组名称 -->
