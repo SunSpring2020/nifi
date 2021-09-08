@@ -9,6 +9,9 @@ nifi_user = config['configurations']['nifi-env']['nifi_user']
 # 获取nifi-env.xml中的nifi_group用户组变量
 nifi_group = config['configurations']['nifi-env']['nifi_group']
 
+# 获取hdfs的用户
+hdfs_user = config['configurations']['hadoop-env']['hdfs_user']
+
 # 获取nifi-env.xml中的nifi安装路径
 nifi_install_dir = config['configurations']['nifi-env']['nifi_dir']
 
