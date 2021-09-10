@@ -29,8 +29,6 @@ class Master(Script):
         # 删除Nifi安装包
         # Execute("rm -rf nifi.tar.gz")
 
-        Execute("hdfs dfs -chmod 775 /", user=params.hdfs_user, ignore_failures=True)
-
         Logger.info("安装完成!")
 
     def configure(self, env, upgrade_type=None, config_dir=None):
