@@ -32,25 +32,6 @@
                         <scriptType>PYTHON</scriptType>
                         <timeout>1800</timeout>
                     </commandScript>
-                    <!-- 自定义命令 -->
-                    <customCommands>
-                        <customCommand>
-                            <name>alone_to_cluster</name>
-                            <background>true</background>
-                            <commandScript>
-                                <script>scripts/master.py</script>
-                                <scriptType>PYTHON</scriptType>
-                            </commandScript>
-                        </customCommand>
-                        <customCommand>
-                            <name>cluster_to_alone</name>
-                            <background>true</background>
-                            <commandScript>
-                                <script>scripts/master.py</script>
-                                <scriptType>PYTHON</scriptType>
-                            </commandScript>
-                        </customCommand>
-                    </customCommands>
                 </component>
                 <component>
                     <name>NIFI_CLIENT</name>

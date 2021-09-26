@@ -43,20 +43,6 @@
         <property-type>GROUP</property-type>
     </property>
 
-    <!-- Nifi安装目录 -->
-    <property>
-        <name>nifi_dir</name>
-        <display-name>Nifi install directory</display-name>
-        <value>/usr/local/nifi</value>
-        <description>Nifi安装目录</description>
-        <final>true</final>
-        <value-attributes>
-            <type>directories</type>
-            <overridable>false</overridable>
-            <editable-only-at-install>true</editable-only-at-install>
-        </value-attributes>
-    </property>
-
     <!-- Nifi的pid目录 -->
     <property>
         <name>nifi_pid_dir</name>
